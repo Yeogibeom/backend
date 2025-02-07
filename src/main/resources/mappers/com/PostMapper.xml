@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.backend.com.mapper.PostMapper">
+
+    <insert id="insertPost" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO post (title,content,username,createdAt,views)
+        VALUES (#{title},#{content},#{username},#{createdAt},#{views})
+    </insert>
+
+    <select id="findAll" resultType="com.study.backend.dto.PostDTO">
+        SELECT * FROM post
+    </select>
+
+    <select id="findById" resultType="com.study.backend.dto.PostDTO">
+        SELECT * FROM post WHERE id= #{id}
+    </select>
+
+    <update id="incrementViews" parameterType="Long">
+        UPDATE post
+        SET views = views + 1
+        WHERE id = #{id}
+    </update>
+
+     <select id="findByTitleContaining" resultType="com.study.backend.dto.PostDTO">
+         SELECT * FROM post
+         WHERE title LIKE CONCAT('%', #{keyword}, '%')
+</select>
+
+    <select id="findByContentContaining" resultType="com.study.backend.dto.PostDTO">
+        SELECT * FROM post
+        WHERE content LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByUsernameContaining" resultType="com.study.backend.dto.PostDTO">
+        SELECT * FROM post
+        WHERE username LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByUsername" resultType="com.study.backend.dto.PostDTO">
+        SELECT * FROM post
+        WHERE username = #{username}
+    </select>
+
+</mapper>
